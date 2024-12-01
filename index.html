@@ -1,0 +1,699 @@
+<html><head><base href="." />
+  <title>MANWHO - A Cat Named Manwhore</title>
+  <style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: white; /* Set base background to white */
+    color: white;
+    position: relative; /* Add this */
+    padding: 40px; /* Adjust main content to respect frame */
+  }
+  
+  /* Remove the existing body::before pattern */
+  body::before {
+    display: none; /* Remove the existing pattern */
+  }
+  
+  /* Update the gradient-background::after pattern */
+  .gradient-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: 
+      /* Orange dots */
+      url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff7e5f' fill-opacity='0.3'%3E%3Ccircle cx='2' cy='2' r='1'/%3E%3Ccircle cx='12' cy='12' r='1'/%3E%3Ccircle cx='7' cy='17' r='1'/%3E%3Ccircle cx='17' cy='7' r='1'/%3E%3C/g%3E%3C/svg%3E"),
+      /* Cyan dots */
+      url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300d2ff' fill-opacity='0.3'%3E%3Ccircle cx='7' cy='2' r='1'/%3E%3Ccircle cx='17' cy='12' r='1'/%3E%3Ccircle cx='2' cy='17' r='1'/%3E%3Ccircle cx='12' cy='7' r='1'/%3E%3C/g%3E%3C/svg%3E"),
+      /* Pink dots */
+      url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23feb1e6' fill-opacity='0.3'%3E%3Ccircle cx='12' cy='2' r='1'/%3E%3Ccircle cx='2' cy='12' r='1'/%3E%3Ccircle cx='17' cy='17' r='1'/%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-position: 0 0, 5px 5px, 10px 10px;
+    z-index: 1;
+    opacity: 0.6;
+    mix-blend-mode: multiply;
+  }
+  
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  @keyframes buttonPress {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+  }
+  
+  .playing {
+    animation: buttonPress 0.3s ease;
+  }
+  
+  .gradient-background {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    background: linear-gradient(-45deg, #ff7e5f, #00d2ff, #feb1e6);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    z-index: 1;
+  }
+  
+  .hero, .tokenomics, .sticky-footer, .dev-button, .modal, .contract-address-container {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .hero h1 {
+    font-size: 4rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
+  }
+  
+  .hero p {
+    font-family: 'Bangers', cursive; /* Changed from 'Righteous' to 'Bangers' */
+    font-size: 2.8em; /* Slightly increased from 2.5em */
+    margin: 20px 0;
+    text-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+    background: linear-gradient(45deg, #ff7e5f, #00d2ff, #feb1e6);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientText 6s ease infinite;
+    font-weight: normal;
+    letter-spacing: 2px; /* Reduced from 3px to work better with new font */
+    position: relative;
+    transform: perspective(500px) rotateX(10deg);
+    transition: transform 0.3s ease;
+  }
+  
+  .hero p:hover {
+    transform: perspective(500px) rotateX(0deg);
+  }
+  
+  .hero p::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00d2ff, #feb1e6); /* Changed gradient colors to cyan and light pink */
+    animation: underlineExpand 3s ease-in-out infinite;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  @keyframes gradientText {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  @keyframes underlineExpand {
+    0% { width: 0; opacity: 0; }
+    20% { opacity: 1; }
+    50% { width: 100%; opacity: 1; }
+    80% { opacity: 1; }
+    100% { width: 0; opacity: 0; }
+  }
+  
+  .tokenomics {
+    padding: 40px 20px 120px 20px; /* Increased bottom padding */
+    background: rgba(254, 177, 230, 0.2); /* Light pink semi-transparent background using the theme color */
+    backdrop-filter: blur(10px);
+    text-align: center;
+    border-radius: 50px 50px 0 0; /* Very rounded top corners */
+  }
+  
+  .tokenomics h2 {
+    margin-bottom: 20px;
+  }
+  
+  .tokenomics p {
+    margin: 10px 0;
+  }
+  
+  .chart-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #ff7e5f;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .chart-button:hover {
+    transform: scale(1.05);
+  }
+  
+  .sticky-footer {
+    position: fixed;
+    bottom: 40px; /* Adjust sticky footer to respect frame */
+    left: 40px;
+    right: 40px;
+    width: auto;
+    background: rgba(0,0,0,0.4); /* Made more transparent */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(5px);
+  }
+  
+  .audio-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .audio-controls button {
+    color: #ff7e5f;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+  
+  #volumeControl {
+    accent-color: #ff7e5f;
+  }
+  
+  .social-icons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .social-icons a {
+    color: #ff7e5f;
+    font-size: 1.5rem;
+    transition: transform 0.2s;
+  }
+  
+  .social-icons a:hover {
+    transform: scale(1.1);
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: linear-gradient(135deg, #ff7e5f20, #00d2ff20);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  
+  .modal-content button {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background: #ff7e5f;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .dev-button {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    padding: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #ff7e5f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+    transform: translate(10px, 10px); /* Adjusted to better center in circle */
+  }
+  
+  .dev-button:hover {
+    color: #feb1e6;
+    transform: translate(10px, 10px) scale(1.1); /* Updated to maintain centering on hover */
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .cat-animation {
+    width: 200px;
+    height: 200px;
+    margin: 20px 0;
+  }
+  
+  #dev-messages div {
+    margin: 10px 0;
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+  }
+  
+  /* Custom scrollbar styles */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #00d2ff, #feb1e6);
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #feb1e6, #00d2ff);
+  }
+  
+  /* Add styles for the chart message */
+  .chart-message {
+    font-size: 0.7em;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #00d2ff, #feb1e6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-family: 'Space Grotesk', sans-serif;
+    opacity: 0.8;
+  }
+  
+  /* New styles for contract address display */
+  .contract-address-container {
+    position: fixed;
+    top: 40px; /* Adjust contract address container */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 10;
+    background: rgba(0,0,0,0.3);
+    padding: 8px 12px;
+  }
+  
+  .contract-address {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.8em;
+    color: transparent;
+    background: linear-gradient(45deg, #00d2ff, #feb1e6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    border: none;
+    background-color: transparent;
+    cursor: text;
+    width: 160px;
+    padding: 0;
+  }
+  
+  .copy-button {
+    background: transparent;
+    border: none;
+    color: #00d2ff;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 0.7em;
+    transition: all 0.3s ease;
+  }
+  
+  .copy-button:hover {
+    color: #feb1e6;
+    transform: scale(1.1);
+  }
+  
+  .copy-button.copied {
+    animation: copyPulse 0.3s ease;
+  }
+  
+  @keyframes copyPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+  }
+  
+  /* Add after the body styles */
+  .comic-frame {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    pointer-events: none;
+    z-index: 3;
+  }
+  
+  .comic-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 8px solid white;
+    box-shadow: 
+      0 0 0 2px #000,
+      inset 0 0 0 2px #000;
+    border-radius: 3px;
+  }
+  
+  /* Add these corner decorations */
+  .comic-frame::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 4px solid black;
+    border-radius: 50%;
+    background: white;
+    top: -20px;
+    left: -20px;
+    box-shadow: 
+      calc(100% + 0px) 0,
+      0 calc(100% + 0px),
+      calc(100% + 0px) calc(100% + 0px);
+  }
+  </style>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</head>
+<body>
+
+<div class="gradient-background"></div>
+
+<div class="comic-frame"></div>
+
+<div class="contract-address-container">
+  <input type="text" class="contract-address" value="0x############" readonly>
+  <button class="copy-button" onclick="copyAddress()">
+    <i class="fas fa-copy"></i>
+  </button>
+</div>
+
+<div class="hero">
+  <img src="https://media1.giphy.com/media/UuebWyG4pts3rboawU/giphy.gif" 
+       alt="Animated cat face with glowing aura effect" 
+       class="cat-animation" 
+       width="200" 
+       height="200"
+       style="border-radius: 50%; object-fit: cover;">
+  <h1>$MANWHO</h1>
+  <p>A Cat Named Manwhore</p>
+</div>
+
+<section class="tokenomics">
+  <h2>Tokenomics</h2>
+  <p>Total Supply: 10,000,000,000</p>
+  <p>Tax: 0/0</p>
+  <p>LP Locked: Forever</p>
+  <p>Dev Wallet: 2%</p>
+  <p>Initial LP: 2 ETH</p>
+  <p>Contract Renounced: Yes</p>
+  
+  <button class="chart-button" onclick="openChartModal()">
+    <i class="fas fa-chart-line"></i> View Chart
+  </button>
+</section>
+
+<button class="dev-button" onclick="openDevModal()">
+  <i class="fas fa-code"></i>
+</button>
+
+<div id="devModal" class="modal">
+  <div class="modal-content">
+    <h3>Developer Updates</h3>
+    <div id="dev-messages"></div>
+    <button onclick="closeDevModal()">Close</button>
+  </div>
+</div>
+
+<div id="chartModal" class="modal">
+  <div class="modal-content">
+    <div class="chart-message">:) Dexscreener Chart Soon!</div>
+    <iframe src="https://dexscreener.com/solana/CpoYFgaNA6MJRuJSGeXu9mPdghmtwd5RvYesgej4Zofj?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=5" width="100%" height="600px"></iframe>
+    <button onclick="closeChartModal()">Close</button>
+  </div>
+</div>
+
+
+
+<footer class="sticky-footer">
+  <div class="audio-controls">
+    <button id="togglePlay">
+      <i class="fas fa-play"></i>
+    </button>
+    <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.5">
+  </div>
+  
+  <div class="social-icons">
+    <a href="https://t.me/+B-r9GPfKU8FmNzNh" target="_blank"><i class="fab fa-telegram"></i></a>
+    <a href="https://x.com/ManwhoretheCat" target="_blank"><i class="fab fa-x-twitter"></i></a>
+    <a href="https://manwhore.cat" target="_blank"><i class="fas fa-globe"></i></a>
+  </div>
+</footer>
+
+<audio id="bgMusic" loop>
+  <source src="https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav" type="audio/wav">
+</audio>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('bgMusic');
+    const togglePlay = document.getElementById('togglePlay');
+    const volumeControl = document.getElementById('volumeControl');
+
+    // Set initial volume
+    audio.volume = 0.5;
+
+    // State management
+    let isPlaying = false;
+    let userInteracted = false;
+
+    function updatePlayButton() {
+        if (togglePlay) {  // Add null check
+            const icon = togglePlay.querySelector('i');
+            if (icon) {    // Add null check
+                icon.className = isPlaying ? 'fas fa-pause' : 'fas fa-play';
+            }
+        }
+    }
+
+    function togglePlayback() {
+        if (isPlaying) {
+            audio.pause();
+        } else {
+            audio.play();
+        }
+        if (togglePlay) {  // Add null check
+            togglePlay.classList.add('playing');
+            setTimeout(() => togglePlay.classList.remove('playing'), 300);
+        }
+    }
+
+    // Function to handle play attempts
+    function playAudio() {
+        audio.play()
+            .then(() => {
+                isPlaying = true;
+                updatePlayButton();
+                console.log("Audio playing successfully");
+            })
+            .catch(err => {
+                console.log("Playback failed:", err);
+                userInteracted = false;
+            });
+    }
+
+    // Toggle button handler
+    if (togglePlay) {  // Add null check
+        togglePlay.addEventListener('click', () => {
+            userInteracted = true;
+            togglePlayback();
+        });
+    }
+
+    // Multiple event listeners for different user interactions
+    const userInteractionEvents = ['click', 'touchstart', 'keydown', 'scroll'];
+
+    userInteractionEvents.forEach(event => {
+        document.addEventListener(event, () => {
+            if (!userInteracted) {
+                userInteracted = true;
+                playAudio();
+            }
+        }, { once: true });
+    });
+
+    // Handle visibility change
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            audio.pause();
+        } else if (userInteracted) {
+            playAudio();
+        }
+    });
+
+    // Volume control
+    if (volumeControl) {  // Add null check
+        volumeControl.addEventListener('input', (e) => {
+            audio.volume = e.target.value;
+        });
+    }
+
+    // Audio state listeners
+    audio.addEventListener('play', () => {
+        isPlaying = true;
+        updatePlayButton();
+    });
+
+    audio.addEventListener('pause', () => {
+        isPlaying = false;
+        updatePlayButton();
+    });
+
+    audio.addEventListener('ended', () => {
+        isPlaying = false;
+        updatePlayButton();
+    });
+
+    // Start playing on page load
+    setTimeout(() => {
+        playAudio();
+    }, 1000);
+
+    // Dev Modal Functions
+    function openDevModal() {
+        const devModal = document.getElementById('devModal');
+        if (devModal) devModal.style.display = 'flex';
+    }
+
+    function closeDevModal() {
+        const devModal = document.getElementById('devModal');
+        if (devModal) devModal.style.display = 'none';
+    }
+
+    function openChartModal() {
+        const chartModal = document.getElementById('chartModal');
+        if (chartModal) chartModal.style.display = 'flex';
+    }
+
+    function closeChartModal() {
+        const chartModal = document.getElementById('chartModal');
+        if (chartModal) chartModal.style.display = 'none';
+    }
+
+    // Expose modal functions to global scope
+    window.openDevModal = openDevModal;
+    window.closeDevModal = closeDevModal;
+    window.openChartModal = openChartModal;
+    window.closeChartModal = closeChartModal;
+
+    // Modal click outside to close
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    }
+
+    // Dev Messages
+    async function fetchDevMessages() {
+        const mockMessages = [
+            "Welcome to $MANWHO!",
+            "LP locked and loaded!",
+            "New partnership announced soon!",
+            "Contract fully renounced - community owned!",
+            "Join our growing community on Telegram!"
+        ];
+        
+        const devMessages = document.getElementById('dev-messages');
+        if (devMessages) {  // Add null check
+            devMessages.innerHTML = '';
+            mockMessages.forEach(msg => {
+                const div = document.createElement('div');
+                div.textContent = msg;
+                devMessages.appendChild(div);
+            });
+        }
+    }
+
+    // Initialize dev messages
+    fetchDevMessages();
+
+    // Add Twitter/X icon switching animation
+    const twitterLink = document.querySelector('.social-icons a[href*="x.com"]');
+    const twitterIcon = twitterLink.querySelector('i');
+    let isTwitterBird = false;
+    
+    setInterval(() => {
+        isTwitterBird = !isTwitterBird;
+        twitterIcon.className = isTwitterBird ? 'fab fa-twitter' : 'fab fa-x-twitter';
+    }, 2000); // Switch every 2 seconds
+
+    // Copy Address Function
+    function copyAddress() {
+      const address = "0x############";
+      navigator.clipboard.writeText(address).then(() => {
+        const copyButton = document.querySelector('.copy-button');
+        copyButton.classList.add('copied');
+        
+        // Change icon temporarily
+        const icon = copyButton.querySelector('i');
+        icon.className = 'fas fa-check';
+        
+        setTimeout(() => {
+          copyButton.classList.remove('copied');
+          icon.className = 'fas fa-copy';
+        }, 1000);
+      });
+    }
+
+    // Add to global scope
+    window.copyAddress = copyAddress;
+});
+</script>
+</body></html>
